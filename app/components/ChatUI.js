@@ -13,6 +13,7 @@ export default function ChatUI() {
   ]);
   const [input, setInput] = useState("");
   const [mode, setMode] = useState("tokenize"); // Default mode
+  const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -22,7 +23,7 @@ export default function ChatUI() {
     
     try {
       const endpoint = mode === "tokenize" ? "tokenize" : "textqa";
-      const response = await axios.post(`http://localhost:8000/${endpoint}`, {
+      const response = await axios.post(`${API_URL}/${endpoint}`, {
         text: input,
       });
       
