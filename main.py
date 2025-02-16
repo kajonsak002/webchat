@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from aift import setting
 from aift.nlp.longan import tokenizer
 from aift.multimodal import textqa
+from aift.nlp.translation import en2th
 from dotenv import load_dotenv
 
 # โหลดตัวแปรจาก .env
@@ -37,3 +38,9 @@ async def tokenize_text(request: TextRequest):
 async def qa_text(request: TextRequest):
     response = textqa.generate(request.text)
     return {"answer": response["content"]}
+
+@app.post("/en2th")
+async def en2th_text(request: TextRequest):
+    response = en2th.translate(request.text)
+    print(response)
+    return {"translate": response}

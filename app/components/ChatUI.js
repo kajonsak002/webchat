@@ -13,7 +13,7 @@ export default function ChatUI() {
   ]);
   const [input, setInput] = useState("");
   const [mode, setMode] = useState("tokenize"); // Default mode
-  const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
+  const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -22,15 +22,26 @@ export default function ChatUI() {
     setInput("");
     
     try {
-      const endpoint = mode === "tokenize" ? "tokenize" : "textqa";
+      let endpoint;
+      if (mode === "tokenize") {
+        endpoint = "tokenize";
+      } else if (mode === "textqa") {
+        endpoint = "textqa";
+      } else if (mode === "en2th") {
+        endpoint = "en2th";
+      }
+
       const response = await axios.post(`${API_URL}/${endpoint}`, {
         text: input,
       });
+      console.log("API Response:", response.data);
       
       if (mode === "tokenize" && response.data.tokens && Array.isArray(response.data.tokens.result)) {
         setMessages((prev) => [...prev, { text: response.data.tokens.result.join(" "), sender: "bot" }]);
       } else if (mode === "textqa" && response.data.answer) {
         setMessages((prev) => [...prev, { text: response.data.answer, sender: "bot" }]);
+      } else if (mode === "en2th" && response.data.translate && response.data.translate.translated_text) {
+        setMessages((prev) => [...prev, { text: response.data.translate.translated_text, sender: "bot" }]); // Updated line
       } else {
         setMessages((prev) => [...prev, { text: "Unexpected API response format", sender: "bot" }]);
       }
@@ -43,8 +54,9 @@ export default function ChatUI() {
   return (
     <div className="flex flex-col h-screen bg-gray-100 max-w-4xl mx-auto w-full">
       <div className="p-4 flex justify-center">
-        <Button onClick={() => setMode("tokenize")} className={`mr-2 ${mode === "tokenize" ? "bg-blue-500 text-white" : "bg-gray-300"}`}>Tokenize</Button>
-        <Button onClick={() => setMode("textqa")} className={`${mode === "textqa" ? "bg-blue-500 text-white" : "bg-gray-300"}`}>QA</Button>
+        <Button onClick={() => setMode("tokenize")} className={`mr-2 ${mode === "tokenize" ? "bg-blue-500 text-white" : "bg-gray-300"}`}>ตัดคำ</Button>
+        <Button onClick={() => setMode("textqa")} className={`mr-2 ${mode === "textqa" ? "bg-blue-500 text-white" : "bg-gray-300"}`}>ถามตอบ</Button>
+        <Button onClick={() => setMode("en2th")} className={`${mode === "en2th" ? "bg-blue-500 text-white" : "bg-gray-300"}`}>แปลอังกฤษ</Button>
       </div>
       <div className="flex-grow p-4 overflow-y-auto">
         {messages.map((msg, index) => (
