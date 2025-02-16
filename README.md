@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# AI FOR Thai demo
 
-## Getting Started
+โปรเจกต์นี้เป็น **เว็บแอปพลิเคชัน** ที่ให้ผู้ใช้เลือกโหมด **Tokenization** และ **QA (Question Answering)** โดยใช้ **FastAPI** และ **Next.js (React)**
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 **ขั้นตอนการติดตั้ง**
+
+### **1. โคลน Repository**
+
+```sh
+git clone https://github.com/anusornc/webchat.git
+cd webchat
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### **2. ตั้งค่าระบบ Backend (FastAPI)**
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+#### **2.1 ติดตั้ง Dependencies**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**หากมีไฟล์ `requirements.txt` ให้ใช้:**
+```sh
+pip install -r requirements.txt
+```
 
-## Learn More
+**ถ้าไม่มี `requirements.txt` ให้ติดตั้งแบบ manual:**
+```sh
+pip install fastapi uvicorn python-dotenv aift
+```
 
-To learn more about Next.js, take a look at the following resources:
+#### **2.2 สร้างไฟล์ `.env` และเพิ่ม API Key**
+```sh
+touch .env
+echo "AIFORTHAI_API_KEY=your-secret-api-key" >> .env
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### **2.3 รันเซิร์ฟเวอร์ Backend**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```sh
+uvicorn main:app --reload
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### **3. ตั้งค่าระบบ Frontend (Next.js)**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#### **3.1 ติดตั้ง Dependencies**
+
+```sh
+npm install
+```
+
+#### **3.2 สร้างไฟล์ `.env.local`**
+```sh
+touch .env.local
+echo "NEXT_PUBLIC_BACKEND_URL=http://localhost:8000" >> .env.local
+```
+
+#### **3.3 รันเซิร์ฟเวอร์ Frontend**
+
+```sh
+npm run dev
+```
+
+---
+
+## 🎯 **วิธีใช้งาน**
+1. เปิด `http://localhost:3000`
+2. เลือกโหมด (**Tokenize** หรือ **QA**)
+3. พิมพ์ข้อความแล้วกด **Send**
+4. ดูผลลัพธ์ที่ได้รับจากระบบ Backend
+
+---
+
+## 🔥 **การแก้ไขปัญหา**
+### **1. Backend ไม่ตอบสนอง?**
+- ตรวจสอบว่า FastAPI กำลังทำงานอยู่: `uvicorn main:app --reload`
+- ตรวจสอบไฟล์ `.env` และแน่ใจว่า API Key ถูกต้อง
+
+### **2. ปัญหากับ Frontend?**
+- รีสตาร์ท Next.js: `npm run dev`
+- ตรวจสอบว่า `.env.local` ถูกตั้งค่าอย่างถูกต้อง
+
+---
+
+## 📜 **ลิขสิทธิ์**
+โปรเจกต์นี้เป็นแบบโอเพ่นซอร์ส สามารถนำไปปรับปรุงและพัฒนาเพิ่มเติมได้
+
+🚀 **สนุกกับแชทบอท AI ของคุณ!**
