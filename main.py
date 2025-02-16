@@ -42,5 +42,4 @@ async def qa_text(request: TextRequest):
 @app.post("/en2th")
 async def en2th_text(request: TextRequest):
     response = en2th.translate(request.text)
-    print(response)
     return {"translate": response}
