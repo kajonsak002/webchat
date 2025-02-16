@@ -1,6 +1,6 @@
 # AI FOR Thai demo
 
-โปรเจกต์นี้เป็น **เว็บแอปพลิเคชัน** ที่ให้ผู้ใช้เลือกโหมด **Tokenization** และ **QA (Question Answering)** โดยใช้ **FastAPI** และ **Next.js (React)**
+โปรเจกต์นี้เป็น **เว็บแอปพลิเคชัน** ที่ให้ผู้ใช้เลือกโหมด **Tokenization** , **QA (Question Answering)** และ **En2Th** โดยใช้ **FastAPI** และ **Next.js (React)**
 
 ---
 
