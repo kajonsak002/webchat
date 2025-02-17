@@ -6,6 +6,7 @@ from aift import setting
 from aift.nlp.longan import tokenizer
 from aift.multimodal import textqa
 from aift.nlp.translation import en2th
+from aift.nlp.translation import th2en
 from dotenv import load_dotenv
 
 # โหลดตัวแปรจาก .env
@@ -42,4 +43,9 @@ async def qa_text(request: TextRequest):
 @app.post("/en2th")
 async def en2th_text(request: TextRequest):
     response = en2th.translate(request.text)
+    return {"translate": response}
+
+@app.post("/th2en")
+async def th2en_text(request: TextRequest):
+    response = th2en.translate(request.text)
     return {"translate": response}
