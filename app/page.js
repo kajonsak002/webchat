@@ -1,11 +1,12 @@
-import Image from "next/image";
+import BlogPage from "./blog/page";
 
-import ChatUI from "./components/ChatUI";
+import Navbar from "./components/Navbar";
 
 export default function Home() {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <ChatUI />
+    <div className="min-h-screen">
+      <Navbar />
+      <BlogPage />
     </div>
   );
 }
